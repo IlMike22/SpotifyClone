@@ -26,7 +26,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         setupRecyclerView()
         subscribeToObservers()
-        songAdapter.setOnItemClickListener { song ->
+        songAdapter.setItemClickListener { song ->
             mainViewModel.playOrToggleSong(song)
         }
     }
