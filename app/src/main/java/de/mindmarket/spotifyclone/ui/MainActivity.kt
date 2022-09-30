@@ -1,4 +1,4 @@
-package de.mindmarket.spotifyclone
+package de.mindmarket.spotifyclone.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

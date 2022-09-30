@@ -4,13 +4,13 @@ import android.content.Context
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.material.circularreveal.CircularRevealHelper
 import com.plcoding.spotifycloneyt.R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import de.mindmarket.spotifyclone.exoplayer.MusicServiceConnection
 import javax.inject.Singleton
 
 @Module
@@ -25,4 +25,11 @@ object AppModule {
                 .error(R.drawable.ic_image)
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
         )
+
+    @Provides
+    @Singleton
+    fun provideMusicServiceConnection(
+        @ApplicationContext context: Context
+    ) = MusicServiceConnection(context)
 }
+
