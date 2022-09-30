@@ -49,6 +49,7 @@ class FirebaseMusicSource @Inject constructor(
                 .putString(METADATA_KEY_DISPLAY_DESCRIPTION, song.subtitle)
                 .build()
         }
+
         state = State.INITIALIZED // since we have defined a setter, each time we set the state again it will be triggered our setter code above
     }
 
@@ -73,16 +74,15 @@ class FirebaseMusicSource @Inject constructor(
                 .setIconUri(song.description.iconUri)
                 .build()
             MediaBrowserCompat.MediaItem(description, FLAG_PLAYABLE)
-        }
-
+        }.toMutableList()
 
     fun whenReady(action: (Boolean) -> Unit): Boolean {
-        if (state == State.CREATED || state == State.INITIALISING) {
+        return if (state == State.CREATED || state == State.INITIALISING) {
             onReadyListeners += action
-            return false
+            false
         } else {
             action(state == State.INITIALIZED)
-            return true
+            true
         }
     }
 }
