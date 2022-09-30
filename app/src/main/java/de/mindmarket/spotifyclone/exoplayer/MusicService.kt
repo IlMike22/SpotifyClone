@@ -59,6 +59,11 @@ class MusicService : MediaBrowserServiceCompat() {
             PendingIntent.getActivity(this, 0, it, 0)
         }
 
+        mediaSession = MediaSessionCompat(this, SERVICE_TAG).apply {
+            setSessionActivity(activityIntent)
+            isActive = true
+        }
+
         musicNotificationManager = MusicNotificationManager(
             context = this,
             sessionToken = mediaSession.sessionToken,
@@ -77,11 +82,6 @@ class MusicService : MediaBrowserServiceCompat() {
                 itemToPlay = it,
                 isPlayNow = true
             )
-        }
-
-        mediaSession = MediaSessionCompat(this, SERVICE_TAG).apply {
-            setSessionActivity(activityIntent)
-            isActive = true
         }
 
         sessionToken = mediaSession.sessionToken
