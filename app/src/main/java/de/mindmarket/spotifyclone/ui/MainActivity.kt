@@ -3,6 +3,8 @@ package de.mindmarket.spotifyclone.ui
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.RequestManager
 import com.plcoding.spotifycloneyt.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +34,30 @@ class MainActivity : AppCompatActivity() {
         subscribeToObservers()
 
         vpSong.adapter = swipeSongAdapter
+
+        swipeSongAdapter.setItemClickListener {
+            navHostFragment.findNavController().navigate(R.id.globalActionToSongFragment)
+        }
+
+        navHostFragment.findNavController().addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.songFragment -> hideBottomBar()
+                R.id.homeFragment -> showBottomBar()
+                else -> showBottomBar()
+            }
+        }
+    }
+
+    private fun hideBottomBar() {
+        ivCurSongImage.isVisible = false
+        vpSong.isVisible = false
+        ivPlayPause.isVisible = false
+    }
+
+    private fun showBottomBar() {
+        ivCurSongImage.isVisible = true
+        vpSong.isVisible = true
+        ivPlayPause.isVisible = true
     }
 
     private fun switchViewPagerToCurrentSong(song: Song) {
